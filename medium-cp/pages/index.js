@@ -1,5 +1,8 @@
+import Header from '../components/Header'
+
 export default function Home() {
+  const styles = {}
   return (
-    <h1 className="text-3xl font-bold underline">Woohoo 🎉</h1>
+    <Header />
   )
 }
