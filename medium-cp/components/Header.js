@@ -3,7 +3,7 @@ import Logo from "../static/logo.png";
 
 const styles = {
     wrapper: "flex justify-center gap-10 p-5 bg-[#FCC017]",
-    content: "max-w-7xl flex-1 flex justify-between gap-10 text-black",
+    content: "max-w-7xl flex-1 flex justify-between gap-10",
     logoContainer: "flex items-center flex-start",
     logo: "cursor-pointer object-contain",
     bannerNav: "flex cursor-pointer items-center space-x-5",
