@@ -12,22 +12,21 @@ const styles = {
 
 const Header = () => {
     return (
-        <div class={styles.wrapper}>
-            <div class={styles.content}>
-                <div class={styles.logoContainer}>
+        <div className={styles.wrapper}>
+            <div className={styles.content}>
+                <div className={styles.logoContainer}>
                     <Image
                         className={styles.logo}
                         src={Logo}
                         height={40}
                         width={200}
                     />
-
-                    <div className={styles.bannerNav}>
-                        <div>Our Story</div>
-                        <div>Membership</div>
-                        <div>Sign In</div>
-                        <div className={styles.accentedButton}>Get Started</div>
-                    </div>
+                </div>
+                <div className={styles.bannerNav}>
+                    <div>Our Story</div>
+                    <div>Membership</div>
+                    <div>Sign In</div>
+                    <div className={styles.accentedButton}>Get Started</div>
                 </div>
             </div>
         </div>
