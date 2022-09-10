@@ -1,3 +1,4 @@
+import ArticleMain from "../../components/ArticleMain";
 import ReadersNav from "../../components/ReadersNav";
 import Recommendations from "../../components/Recommendations";
 
@@ -11,7 +12,7 @@ const Post = () => {
         <div className={styles.wrapper}>
             <div className={styles.content}>
                 <ReadersNav />
-                <div>Main article will go here</div>
+                <ArticleMain />
                 <Recommendations />
             </div>
         </div>

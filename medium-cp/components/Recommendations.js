@@ -57,22 +57,27 @@ const Recommendations = ({ author }) => {
             <div className={styles.recommendationContainer}>
                 <div className={styles.title}>More from Medium</div>
                 <div className={styles.articlesContainer}>
-                    <div className={styles.articleContentWrapper}>
-                        <div className={styles.articleContent}>
-                            <div className={styles.recommendationAuthorContainer}>
-                                <div className={styles.recommendationAuthorProfileImageContainer}>
-                                    <Image src={Qazi} width={100} height={100} />
+                    {recommendedPosts.map((post) => (
+                        <div className={styles.articleContentWrapper}>
+                            <div className={styles.articleContent}>
+                                <div className={styles.recommendationAuthorContainer}>
+                                    <div className={styles.recommendationAuthorProfileImageContainer}>
+                                        <Image src={post.author.image} width={100} height={100} />
+                                    </div>
+                                    <div className={styles.recommendationAuthorName}>{post.author.name}</div>
                                 </div>
-                                <div className={styles.recommendationAuthorName}>Rafeh Qazi</div>
+                                <div className={styles.recommendationTitle}>{post.title}</div>
                             </div>
-                            <div className={styles.recommendationTitle}>
-                                The Ultimate JavaScript Course for Beginners by Clever Programmer
+                            <div className={styles.recommendationThumbnailContainer}>
+                                <Image
+                                    className={styles.recommendationThumbnail}
+                                    src={post.image}
+                                    width={100}
+                                    height={100}
+                                />
                             </div>
                         </div>
-                        <div className={styles.recommendationThumbnailContainer}>
-                            <Image className={styles.recommendationThumbnail} src={JSLogo} width={100} height={100} />
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
@@ -80,3 +85,30 @@ const Recommendations = ({ author }) => {
 };
 
 export default Recommendations;
+
+const recommendedPosts = [
+    {
+        title: "What can you do with Replit?",
+        image: ReplitLogo,
+        author: {
+            name: "Clever Programmer",
+            image: CPLogo,
+        },
+    },
+    {
+        title: "The Ultimate JavaScript Course for Beginners by Clever Programmer",
+        image: TutorialImg,
+        author: {
+            name: "Rafeh Qazi",
+            image: Qazi,
+        },
+    },
+    {
+        title: "How to Become a Developer in 2022?",
+        image: JSLogo,
+        author: {
+            name: "Clever Programmer",
+            image: CPLogo,
+        },
+    },
+];
