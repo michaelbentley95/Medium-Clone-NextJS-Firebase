@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Qazi from "../static/qazi.jpg";
-import Banner from "../static/Banner.png";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { IoLogoTwitter } from "react-icons/io";
 import { FaFacebook } from "react-icons/fa";
@@ -29,19 +27,31 @@ const styles = {
     dummy: "",
 };
 
-const ArticleMain = () => {
+const ArticleMain = ({ post, author }) => {
+    console.log(post, author);
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
                 <div className={styles.postHeaderContainer}>
                     <div className={styles.authorContainer}>
                         <div className={styles.authorProfileImageContainer}>
-                            <Image className={"object-cover"} src={Qazi} width={100} height={100} />
+                            <Image
+                                className={"object-cover"}
+                                src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
+                                width={100}
+                                height={100}
+                            />
                         </div>
                         <div className={styles.column}>
-                            <div className={styles.authorName}>Rafeh Qazi</div>
+                            <div className={styles.authorName}>{author?.data?.name}</div>
                             <div className={styles.postDetails}>
-                                <span>June 15 · 7 min read ·</span>
+                                <span>
+                                    {new Date(post?.data?.postedOn).toLocaleString("en-US", {
+                                        day: "numeric",
+                                        month: "short",
+                                    })}{" "}
+                                    · {post?.data?.postLength} min read ·
+                                </span>
                                 <span className={styles.listenButton}>
                                     <AiFillPlayCircle /> Listen
                                 </span>
@@ -60,21 +70,26 @@ const ArticleMain = () => {
                 </div>
                 <div className={styles.articleMainContainer}>
                     <div className={styles.bannerContainer}>
-                        <Image className={styles.image} src={Banner} width={100} height={100} />
+                        <Image
+                            className={styles.image}
+                            src={`https://res.cloudinary.com/demo/image/fetch/${post?.data?.bannerImage}`}
+                            width={100}
+                            height={100}
+                        />
                     </div>
-                    <h1 className={styles.title}>7 Free Tools That Will Make You More Productive in 2022</h1>
+                    <h1 className={styles.title}>{post?.data?.title}</h1>
                     <h4 className={styles.subtitle}>
-                        <div>Rafeh Qazi, June 15, 2022</div>
-                        <div>Brief: Productivity is a skill that can be learned.</div>
+                        <div>
+                            {author?.data?.name},{" "}
+                            {new Date(post?.data?.postedOn).toLocaleString("en-US", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                            })}
+                        </div>
+                        <div>{post?.data?.brief}</div>
                     </h4>
-                    <div className={styles.articleText}>
-                        Next.js is for static generation server-side rendering, while Angular is for client-side
-                        rendering: Although you can technically use Next.js for client-side rendering, this is not its
-                        main purpose. Next.js was designed with multipage application and website development in mind,
-                        and it should be used for its static generation and server-side rendering capabilities. Quite
-                        the opposite, Angular was designed for building SPAs, and it provides developers with what they
-                        need to deal with client-side rendering and build a SPA easily and effortlessly.
-                    </div>
+                    <div className={styles.articleText}>{post?.data?.body}</div>
                 </div>
             </div>
         </div>

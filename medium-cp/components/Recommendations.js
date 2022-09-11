@@ -43,10 +43,14 @@ const Recommendations = ({ author }) => {
             </div>
             <div className={styles.authorContainer}>
                 <div className={styles.authorProfileImageContainer}>
-                    <Image src={Qazi} width={100} height={100} />
+                    <Image
+                        src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
+                        width={100}
+                        height={100}
+                    />
                 </div>
-                <div className={styles.authorName}>Rafeh Qazi</div>
-                <div className={styles.authorFollowing}>Over 9000 followers</div>
+                <div className={styles.authorName}>{author?.data?.name}</div>
+                <div className={styles.authorFollowing}>{author?.data?.followerCount} followers</div>
                 <div className={styles.authorActions}>
                     <button className={styles.actionButton}>Follow</button>
                     <button className={styles.actionButton}>
@@ -58,7 +62,7 @@ const Recommendations = ({ author }) => {
                 <div className={styles.title}>More from Medium</div>
                 <div className={styles.articlesContainer}>
                     {recommendedPosts.map((post) => (
-                        <div className={styles.articleContentWrapper}>
+                        <div key={post.id} className={styles.articleContentWrapper}>
                             <div className={styles.articleContent}>
                                 <div className={styles.recommendationAuthorContainer}>
                                     <div className={styles.recommendationAuthorProfileImageContainer}>
