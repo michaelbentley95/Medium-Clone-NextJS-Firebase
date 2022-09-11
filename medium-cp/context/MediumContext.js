@@ -1,10 +1,12 @@
+import { signInWithPopup } from "firebase/auth";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db, auth, provider } from "../firebase";
 
 const MediumContext = createContext();
 const MediumProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
+    const [currentUser, setCurrentUser] = useState(null);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -53,7 +55,27 @@ const MediumProvider = ({ children }) => {
         getPosts();
     }, []);
 
-    return <MediumContext.Provider value={{ posts, users }}>{children}</MediumContext.Provider>;
+    const addUserToFirebase = async (user) => {
+        await setDoc(doc(db, "users", user.email), {
+            email: user.email,
+            name: user.displayName,
+            imageUrl: user.photoURL,
+            followerCount: 0,
+        });
+    };
+
+    const handleUserAuth = async () => {
+        const userData = await signInWithPopup(auth, provider);
+        const user = userData.user;
+        setCurrentUser(user);
+        addUserToFirebase(user);
+    };
+
+    return (
+        <MediumContext.Provider value={{ posts, users, handleUserAuth, currentUser }}>
+            {children}
+        </MediumContext.Provider>
+    );
 };
 
 export { MediumContext, MediumProvider };
