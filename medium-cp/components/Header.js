@@ -37,7 +37,7 @@ const styles = {
 
 const Header = () => {
     const router = useRouter();
-    const { currentUser, handleUserAuth } = useContext(MediumContext);
+    const { currentUser, signInWithGoogle, signOutFromFirebase } = useContext(MediumContext);
 
     return (
         <div className={styles.wrapper}>
@@ -49,6 +49,7 @@ const Header = () => {
                     <div className={styles.bannerNav}>
                         <div>Our Story</div>
                         <div>Membership</div>
+                        <div onClick={signOutFromFirebase}>Sign Out</div>
                         <Link href={"/?addNew=1"}>
                             <div className={styles.accentedButton}>Write</div>
                         </Link>
@@ -58,7 +59,7 @@ const Header = () => {
                     <div className={styles.bannerNav}>
                         <div>Our Story</div>
                         <div>Membership</div>
-                        <div onClick={handleUserAuth}>Sign In</div>
+                        <div onClick={signInWithGoogle}>Sign In</div>
                         <div className={styles.accentedButton}>Get Started</div>
                     </div>
                 )}

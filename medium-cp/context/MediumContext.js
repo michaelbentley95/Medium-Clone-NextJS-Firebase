@@ -1,4 +1,4 @@
-import { signInWithPopup } from "firebase/auth";
+import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 import { db, auth, provider } from "../firebase";
@@ -55,6 +55,10 @@ const MediumProvider = ({ children }) => {
         getPosts();
     }, []);
 
+    onAuthStateChanged(auth, (newUser) => {
+        setCurrentUser(newUser);
+    });
+
     const addUserToFirebase = async (user) => {
         await setDoc(doc(db, "users", user.email), {
             email: user.email,
@@ -64,15 +68,20 @@ const MediumProvider = ({ children }) => {
         });
     };
 
-    const handleUserAuth = async () => {
+    const signInWithGoogle = async () => {
         const userData = await signInWithPopup(auth, provider);
         const user = userData.user;
         setCurrentUser(user);
         addUserToFirebase(user);
     };
 
+    const signOutFromFirebase = async () => {
+        await signOut(auth);
+        setCurrentUser(null);
+    };
+
     return (
-        <MediumContext.Provider value={{ posts, users, handleUserAuth, currentUser }}>
+        <MediumContext.Provider value={{ posts, users, signInWithGoogle, signOutFromFirebase, currentUser }}>
             {children}
         </MediumContext.Provider>
     );

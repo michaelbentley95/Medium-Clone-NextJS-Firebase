@@ -29,7 +29,7 @@ const PostModal = () => {
         event.preventDefault();
 
         await addDoc(collection(db, "articles"), {
-            bannerImgae: bannerImage,
+            bannerImage: bannerImage,
             body: body,
             category: category,
             brief: brief,
